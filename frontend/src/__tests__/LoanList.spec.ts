@@ -22,6 +22,7 @@ const stubs = { RouterLink: { template: "<a><slot /></a>" } };
 afterEach(() => vi.clearAllMocks());
 
 describe("LoanList", () => {
+  // Esto es una prueba.
   it("renders a row per loan once loaded", async () => {
     const wrapper = mount(LoanList, { global: { stubs } });
     await flushPromises();
