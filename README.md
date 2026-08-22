@@ -85,3 +85,14 @@ You decide what "consistent" / "useful" means and what happens at the edges — 
 of them aren't specified, on purpose. When you hand back your pull request, tell us
 what you built **and** what you made of the code you inherited: what you'd raise with
 the team, what you'd change, what you'd leave. Nothing here is above criticism.
+
+## Pull Request
+
+### Resumen
+
+Se construyó la vista de estado de cuenta en `LoanStatement.vue`: consume el endpoint `/api/loans/<id>/statement/`, concilia los apuntes (*postings*) de cuentas por cobrar para generar un saldo pendiente corrido, y muestra el historial reflejando el cambio por línea y el saldo actual. También gestiona la paginación de la API del estado de cuenta (cuyo tamaño de página predeterminado es `2`) para usar todo el historial disponible, y lanza una advertencia cuando el saldo pendiente en caché del detalle del préstamo no coincide con el saldo derivado del estado de cuenta.
+
+### Notas de revisión
+
+- **Paginación en el endpoint**: el `page_size=2` por defecto es fácil de pasar por alto; un cliente que trate la respuesta como un arreglo plano se quedará con un historial incompleto. Yo lo señalaría al equipo, subiría el valor predeterminado o al menos lo documentaría explícitamente.
+- **Saldo en caché vs. libro mayor**: el campo de lista/detalle usa saldos contables cacheados, mientras que el estado de cuenta es la vista derivada directamente de los apuntes. Con los datos de prueba (*seeded data*) no coinciden (la caché se queda estancada con el saldo pendiente inicial). Habría que plantear si la caché está mal, desactualizada, o si directamente la API debería exponer la cifra derivada en lugar de la cacheada.
