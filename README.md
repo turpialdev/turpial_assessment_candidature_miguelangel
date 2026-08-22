@@ -96,3 +96,17 @@ Se construyó la vista de estado de cuenta en `LoanStatement.vue`: consume el en
 
 - **Paginación en el endpoint**: el `page_size=2` por defecto es fácil de pasar por alto; un cliente que trate la respuesta como un arreglo plano se quedará con un historial incompleto. Yo lo señalaría al equipo, subiría el valor predeterminado o al menos lo documentaría explícitamente.
 - **Saldo en caché vs. libro mayor**: el campo de lista/detalle usa saldos contables cacheados, mientras que el estado de cuenta es la vista derivada directamente de los apuntes. Con los datos de prueba (*seeded data*) no coinciden (la caché se queda estancada con el saldo pendiente inicial). Habría que plantear si la caché está mal, desactualizada, o si directamente la API debería exponer la cifra derivada en lugar de la cacheada.
+
+### Validación
+
+- `npm install` ejecutado correctamente dentro de `frontend`.
+- `npm run build` ejecutado correctamente.
+- La aplicación se puede iniciar con `docker compose up`.
+- El frontend está disponible en `http://localhost:5173`.
+- La API está disponible en `http://localhost:8000/api/loans/`.
+- La vista de estado de cuenta obtiene los datos desde la API, muestra el historial completo y calcula el saldo a partir de los apuntes contables.
+- Las respuestas de error de la API se muestran en la interfaz en lugar de presentar datos incompletos o inventados.
+
+### Alcance
+
+La tarea implementada corresponde a la variante Front-end del reto. No se modificó `record_repayment` en el backend porque esa era una tarea alternativa.
