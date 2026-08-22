@@ -15,7 +15,7 @@ export async function getStatement(id: number): Promise<StatementLine[]> {
   let path: string | null = `/loans/${id}/statement/?page_size=100`;
 
   while (path) {
-    const page = await getJSON<Paginated<StatementLine>>(path);
+    const page: Paginated<StatementLine> = await getJSON<Paginated<StatementLine>>(path);
     lines.push(...page.results);
     path = page.next ? apiPathFromNext(page.next) : null;
   }
